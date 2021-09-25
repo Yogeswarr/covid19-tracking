@@ -1,0 +1,50 @@
+@import "../../../styles.scss";
+
+.darkMode1 {
+    @include theme-selector1($dark-theme1: true)
+}
+.lightMode1 {
+    @include theme-selector1($dark-theme1: false)
+}
+.home {
+    height: 100vh;
+    margin-top: 70px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    padding: 10px 150px;
+    @include large {
+        padding: 10px 70px;
+    }
+    @include medium {
+        flex-direction: column-reverse;
+    }
+    &__map {
+        flex: 0.5;
+        // background-color: red;
+    }
+    &__indiaStats {
+        flex: 0.5;
+
+    }
+    &__details {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 10px;
+    }
+    &__detail {
+        height: 100px;
+        width: 210px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+        margin: 2px;
+        cursor: pointer;
+    }
+    .large__text {
+        font-size: 23px;
+    }
+}

@@ -1,0 +1,13 @@
+<div class="home" [ngClass] = "darkMode? 'darkMode1' : 'lightMode1'">
+    <div class="home__map">
+        
+    </div>
+    <div class="home__indiaStats">
+        <div class="home__details">
+            <div class="home__detail home__text">Confirmed <br> <br> <span class="large__text">{{ confirmedCases.toLocaleString('en-IN') }}</span></div>
+            <div class="home__detail home__text">Active<br> <br> <span class="large__text">{{ activeCases.toLocaleString('en-IN') }}</span></div>
+            <div class="home__detail home__text">Recovered <br> <br> <span class="large__text">{{ recovered.toLocaleString('en-IN') }}</span></div>
+            <div class="home__detail home__text">Deaths <br> <br> <span class="large__text">{{ deaths.toLocaleString('en-IN') }}</span></div>
+        </div>
+    </div>
+</div>

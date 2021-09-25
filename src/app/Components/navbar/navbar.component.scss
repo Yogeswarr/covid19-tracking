@@ -1,0 +1,100 @@
+@import "../../../styles";
+.darkMode {
+    @include theme-selector($dark-theme: true)
+}
+.lightMode {
+    @include theme-selector($dark-theme: false)
+}
+.navbar {
+    height: 70px;
+    display: flex;
+    z-index: 99;
+    position: fixed;
+    width: 100%;
+    align-items: center;
+    // overflow: hidden;
+    top: 0;
+
+    &__logo {
+        margin-left: 24px;
+        font-size: 30px;
+        cursor: pointer;
+        font-weight: 600;
+        text-decoration: none;
+        @include tablet {
+            font-size: 25px;
+        }
+        @include mobile {
+            font-size: 20px;
+            margin-left: 10px;
+        }
+    }
+
+    &__bars {
+        opacity: 0;
+        font-size: 30px;
+        @include tablet {
+            opacity: 1;
+            position: absolute;
+            right: 20px;
+        }
+        @include mobile {
+            font-size: 25px;
+        }
+    }
+    &__menu--links {
+        text-decoration: none;
+        font-size: 20px;
+        margin: 20px;
+        transition: all 250ms ease-in-out;
+        position: relative;
+        transition: .5s;
+        @include mobile {
+            font-size: 15px;
+        }
+    }
+    &__menu--links::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 2px;
+        z-index: -1;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: 0.5s;
+
+    }
+    &__menu--links:hover:before {
+        transform: scaleX(1);
+    }
+    .navbar__menu {
+        display: flex;
+        flex-direction: row;
+        @include tablet {
+            position: absolute;
+            flex-direction: column;
+            opacity: 0;
+        }
+    }
+    .active {
+        opacity: 1;
+        top: 70px;
+        z-index: 100;
+        width: 100%;
+        transition: all 0.5s ease-in-out;
+    }
+    &__switch {
+        position: absolute;
+        right: 40px;
+        cursor: pointer;
+        font-size: 25px;
+        @include tablet {
+            right: 80px;
+            font-size: 20px;
+        }
+    }
+}
+
+// check mixin variable in scss

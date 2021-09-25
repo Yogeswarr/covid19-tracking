@@ -1,0 +1,12 @@
+@import "../../../styles.scss";
+
+.darkMode2 {
+    @include theme-selector2($dark-theme2: true)
+}
+.lightMode2 {
+    @include theme-selector2($dark-theme2: false)
+}
+.about {
+    height: 100vh;
+    margin-top: 70px;
+}

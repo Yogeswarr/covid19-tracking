@@ -1,0 +1,23 @@
+<nav class="navbar" [ngClass] = "darkMode? 'darkMode': 'lightMode'">
+    <a (click) = "closeNav()" routerLink = "/" class="navbar__logo text">COVID-19 India</a>
+    <div (click) = "openNav()"  class="navbar__bars" *ngIf = "belowNav; else elseBlock">
+        <i class="fas fa-times text"></i>
+    </div>
+    <ng-template #elseBlock>
+        <div (click) = "openNav()" class="navbar__bars">
+            <i class="fas fa-bars text"></i>
+        </div>
+    </ng-template>
+    <div class="navbar__menu" [ngClass] = "belowNav? 'active' : ''">
+        <a (click) = "closeNav()" routerLink = "/about" class="navbar__menu--links text">About</a>
+        <a (click) = "closeNav()" href="" class="navbar__menu--links text">Github</a>
+    </div>
+    <div (click) = "enableDark()" class="navbar__switch text" *ngIf = "darkMode; else lightMode">
+        <i class="fas fa-sun text"></i>
+    </div>
+    <ng-template #lightMode>
+        <div (click) = "enableDark()" class="navbar__switch">
+            <i class="fas fa-moon text"></i>
+        </div>
+    </ng-template>
+</nav>

@@ -1,0 +1,84 @@
+// Light theme coors
+
+$bg-theme-light: rgb(236, 236, 236);
+$color-theme-light: #000;
+$bg-home-theme-light: #fff;
+
+// Dark themes Color
+
+$bg-theme-dark: #161625;
+$color-theme-dark: #fff;
+$bg-home-theme-dark: #0c0c3a;
+
+
+// Navbar
+
+@mixin theme-selector ($dark-theme: true) {
+    @if $dark-theme {
+        background: $bg-theme-dark;
+        .text {
+            color: $color-theme-dark;
+        }
+        .navbar__menu--links::before {
+            background-color: $color-theme-dark;
+        }
+        .active {
+            background-color: $bg-theme-dark;
+        }
+    }
+    @if not $dark-theme {
+        background: $bg-theme-light;
+        .text {
+            color: $color-theme-light;
+        }
+        .navbar__menu--links::before {
+            background-color: $color-theme-light;
+        }
+        .active {
+            background-color: $bg-theme-light;
+        }
+    }
+}
+
+
+// home
+@mixin theme-selector1 ($dark-theme1: true) {
+    @if $dark-theme1 {
+        background: $bg-home-theme-dark;
+        .home__text{
+            color: $color-theme-dark;
+        }
+        .home__detail {
+            background-color: rgba(55, 48, 83, 0.692);  
+            backdrop-filter: blur(6px);
+        }
+    }
+    @else {
+        background: $bg-home-theme-light;
+        .home__text {
+            color: $color-theme-light;
+        }
+        .home__detail {
+            background-color: rgba(255, 255, 255, 0.555);
+            backdrop-filter: blur(6px);
+        }
+
+    }
+}
+
+// about
+@mixin theme-selector2 ($dark-theme2: true) {
+    @if $dark-theme2 {
+        background: $bg-home-theme-dark;
+        .about__text{
+            color: $color-theme-dark;
+        }
+        
+    }
+    @else {
+        background: $bg-home-theme-light;
+        .about__text {
+            color: $color-theme-light;
+        }
+    }
+}

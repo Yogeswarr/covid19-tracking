@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./Themes";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url("assets/fonts/Ubuntu-Medium.ttf");
+}
+
+@mixin tablet {
+    @media screen and (max-width: 768px) {
+        @content;       
+    }
+}
+
+@mixin mobile {
+    @media screen and (max-width: 360px) {
+        @content;       
+    }
+}
+
+@mixin large {
+    @media screen and (max-width: 992px) {
+        @content;       
+    }
+}
+@mixin medium {
+    @media screen and (max-width: 600px) {
+        @content;       
+    }
+}
