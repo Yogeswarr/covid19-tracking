@@ -1,0 +1,76 @@
+// import "./App.css"
+import React from "react";
+import * as axios from "axios";
+import * as d3 from "d3";
+import { feature } from "topojson-client";
+export default function App() {
+  const width = 900;
+  const height = 600;
+  let covidData = [];
+  let nice = [];
+  axios
+    .get("https://data.covid19india.org/v4/min/data.min.json")
+    .then(async (data) => {
+      covidData.push(data["data"]["KA"]["districts"]);
+      // console.log(covidData);
+    });
+  d3.json(
+    "https://raw.githubusercontent.com/covid19india/covid19india-react/master/public/maps/karnataka.json"
+  ).then((data) => {
+    const district = feature(data, data.objects.districts);
+    const projection = d3.geoMercator().fitSize([400, 400], district);
+    const path = d3.geoPath().projection(projection);
+    // console.log(district.features);
+    const svg = d3.select("svg").attr("width", width).attr("height", height);
+    const g = svg.append("g");
+    const colors = d3
+      .scaleLinear()
+      .domain([10, 100000])
+      .range(["white", "blue"]);
+    const abc = (index) => {
+      return nice[index];
+    };
+    let name = (s) => {
+      Array.from(covidData).find((i) => {
+        // console.log(Object.values(i))
+        Object.keys(i).find((m) => {
+          // console.log(m)
+
+          if (m === s["properties"]["district"]) {
+            // console.log(i[m]["total"]["confirmed"]);
+            return Number(i[m]["total"]["confirmed"])
+          } 
+        });
+      });
+    };
+    let temp = 0;
+    // console.log(nice);
+
+    g.selectAll("path")
+      .data(district.features)
+      .enter()
+      .append("path")
+      .attr("class", "district")
+      .attr("stroke", "red")
+      .attr("fill", (d) => {
+        console.log(colors(name(d)))
+        if (name(d)) {
+          return colors(name(d))
+        }
+        else {
+          return "yellow"
+        }
+      })
+      .attr("d", (d) => path(d))
+      .on("mouseover", function (d, i) {
+        // console.log(i["properties"]["district"])
+        d3.select(this).attr("div", i["properties"]["district"]);
+      });
+  });
+  return (
+    <div className="App">
+      <h1>Hello CodeSandbox</h1>
+      <h2>Start editing to see some magic happen!</h2>
+    </div>
+  );
+}
