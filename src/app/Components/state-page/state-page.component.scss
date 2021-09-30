@@ -1,0 +1,13 @@
+@import "../../../styles.scss";
+
+.darkMode3 {
+    @include theme-selector3($dark-theme3: true)
+}
+.lightMode3 {
+    @include theme-selector3($dark-theme3: false)
+}
+
+.state {
+    min-height: 100vh;
+    margin-top: 70px;
+}

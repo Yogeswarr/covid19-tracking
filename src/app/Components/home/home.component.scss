@@ -31,7 +31,6 @@
     }
     &__map {
         flex: 0.5;
-        // background-color: red;
     }
     &__indiaStats {
         flex: 0.5;
@@ -42,7 +41,6 @@
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 10px;
         @include large {
-            // grid-template-columns: repeat(4, 1fr);
             justify-items: center;
         }
     }
@@ -61,9 +59,18 @@
             width: 160px;
             height: 100px;
         }
+        @include mobile{
+            width: 130px;
+            height: 80px;
+        }
+        
+
     }
     .large__text {
         font-size: 23px;
+        @include mobile {
+            font-size: 20px;
+        }
     }
     &__header {
         font-size: 40px;
@@ -92,5 +99,43 @@
     .home__red:hover {
         background: $red-hover;
     }
+    &__date {
+        display: flex;
+        flex-direction: row;
+        font-size: 23px;
+        @include large {
+            opacity: 0;
+        }
+        column-gap: 50px;
+        padding-bottom: 50px;
+    }
+    &__stateInfo {
+        position: absolute;
+        height: 100px;
+        width: 210px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        row-gap: 5px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+        margin: 2px;
+        top: 25%;
+        left: 25%;
+        opacity: 0;
+        @include large {
+            left: 40%;
+        }
+        @include mobile {
+            height: 80px;
+            width: 180px;
+        }
+    }
+    &__stateName {
+        font-size: 20px;
+        @include mobile {
+            font-size: 16px;
+        }
+    }
 }
-

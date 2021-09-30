@@ -1,15 +1,23 @@
 <div class="home" [ngClass] = "darkMode? 'darkMode1' : 'lightMode1'">
-
+    <div class="home__stateInfo">
+        <p class="home__text home__stateName"></p>
+        <p class="home__text home__statType"></p>
+        <p class="home__text home__stateNum"></p>
+    </div>
     <div class="home__map">
         <p class="home__text home__header">India</p>
-        <svg id="map" width = "500" height = "500"></svg>
+            <svg id="india_map"  ></svg>
     </div>
     <div class="home__indiaStats">
+        <div class="home__date">
+            <p class="home__text"> {{ dateTime | date: "EEEE, d MMMM"}} </p>
+            <p class="home__text" >{{ dateTime | date: "h:mm a" }}</p>
+        </div>
         <div class="home__details">
-            <div class="home__detail home__text home__red">Confirmed <br> <br> <span class="large__text">{{ confirmedCases.toLocaleString('en-IN') }}</span></div>
-            <div class="home__detail home__text home__blue">Active<br> <br> <span class="large__text">{{ activeCases.toLocaleString('en-IN') }}</span></div>
-            <div class="home__detail home__text home__green">Recovered <br> <br> <span class="large__text">{{ recovered.toLocaleString('en-IN') }}</span></div>
-            <div class="home__detail home__text home__gray">Deaths <br> <br> <span class="large__text">{{ deaths.toLocaleString('en-IN') }}</span></div>
+            <div (click) = "changeData('confirmed')" class="home__detail home__text home__red">Confirmed <br> <br> <span class="large__text">{{ confirmedCases.toLocaleString('en-IN') }}</span></div>
+            <div (click) = "changeData('active')"  class="home__detail home__text home__blue">Active<br> <br> <span class="large__text">{{ activeCases.toLocaleString('en-IN') }}</span></div>
+            <div (click) = "changeData('recovered')"  class="home__detail home__text home__green">Recovered <br> <br> <span class="large__text">{{ recovered.toLocaleString('en-IN') }}</span></div>
+            <div (click) = "changeData('deceased')"  class="home__detail home__text home__gray">Deaths <br> <br> <span class="large__text">{{ deaths.toLocaleString('en-IN') }}</span></div>
         </div>
     </div>
 </div>

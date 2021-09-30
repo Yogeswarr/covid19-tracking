@@ -1,11 +1,11 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { SharedService } from 'src/app/shared.service';
-import { select, json, geoPath, geoMercator, scaleLinear, schemeBlues, schemeGreens } from 'd3'
+import { select, json, geoPath, geoMercator, scaleLinear, schemeBlues, schemeGreens, schemeReds, schemeGreys } from 'd3'
 import { feature } from 'topojson-client'
 import * as d3 from 'd3';
-import { MAIN_URL } from 'src/Constants';
+import { MAIN_URL, findConfirmedCases, findRecoveredCases, findTotalDeaths, findActiveCases } from 'src/Constants';
+import { timer } from 'rxjs';
 
 @Component({
 	selector: 'app-home',
@@ -14,132 +14,134 @@ import { MAIN_URL } from 'src/Constants';
 })
 
 export class HomeComponent implements OnInit {
-	
 	public stateData: any
-	public stateMap: any
+	public indiaMap: any
 	public stateDataIn: any
-	constructor(private _appData: AppComponent, private themesService: SharedService, private http: HttpClient) {}
+	public screenWidth: any;  
+  	public screenHeight: any; 
+	public dataShown = "confirmed"
+	public stateName = "KA"
+	
+	constructor(private _appData: AppComponent, private themesService: SharedService) {}
 	darkMode = false;
 	confirmedCases = 0
 	activeCases = 0
 	recovered = 0
 	deaths = 0
+	dateTime!: Date
 	colors = scaleLinear<string>()
-		.domain([10000, 150000])
-		.range(schemeGreens[5])
+		.domain([1, 3000000])
+		.range(schemeReds[3])
+	colors1 = scaleLinear<string>()
+		.domain([1, 30000])
+		.range(schemeGreens[3])
+	
+	render () {
+		let svg = select("#india_map")
+			.attr("preserveAspectRatio", "xMinYMin meet")
+			.attr("viewBox", "0 0 580 780")
+			.classed("svg-content", true);
 		
-	// colors = scaleLinear()
-	findConfirmedCases () {
-		let sum = 0
-		for (let i = 0; i < 37; i++) {
-			sum = sum + this.stateData[Object.keys(this.stateData)[i]]["total"]["confirmed"]
-		}
-		this.confirmedCases = sum/2
-	}
-	findTotalDeaths () {
-		let sum = 0
-		for (let i = 0; i < 37; i++) {
-			sum = sum + this.stateData[Object.keys(this.stateData)[i]]["total"]["deceased"]
-		}
-		this.deaths = sum/2
-	}
-	findRecovered () {
-		let sum = 0
-		for (let i = 0; i < 37; i++) {
-			sum = sum + this.stateData[Object.keys(this.stateData)[i]]["total"]["recovered"]
-		}
-		this.recovered = sum/2
-	}
-	findActiveCases () {
-		let sum = 0
-		for (let i = 0; i < 37; i++) {
-			if (this.stateData[Object.keys(this.stateData)[i]]["total"]["other"] == undefined) {
-				sum = sum
-			}
-			else {
-				sum += this.stateData[Object.keys(this.stateData)[i]]["total"]["other"]
-			}
-		}
-		this.activeCases = this.confirmedCases - this.deaths - this.recovered - sum/2
-	}
-	ngOnInit() {
-		
-		this._appData.getData()
-			.subscribe(data => {
-				this.stateData = data
-				// console.log(this.stateData[Object.keys(this.stateData)[15]]["districts"])
-				this.stateDataIn = this.stateData[Object.keys(this.stateData)[15]]["districts"]
-				// console.log(Object.keys(this.stateData)[15])
-				// console.log(this.findTotalCases())
-
-				this.findConfirmedCases()
-				this.findRecovered()
-				this.findTotalDeaths()
-				this.findActiveCases()
-				
-			})
-
-		this.themesService.mode.subscribe(data => this.darkMode = data)
-		
-
-		let svg = select('#map')
-		
+		// svg.remove()
 		let g = svg.append('g');
-		// g.attr('class', 'map');
-
-		json('../../../assets/maps/karnataka.json')
+		
+		json("../../../assets/maps/india1.json")
 			.then((data: any) => {
-				let districts = feature(data, data.objects.districts)
-				this.stateMap = districts
-				let projection = geoMercator().fitSize([400, 400], districts);
-				let path = geoPath()
-					.projection(projection);
-				
-				let values: Array<number> = []
-				
-				// console.log(this.stateMap[Object.keys(this.stateMap)[1]][0]["properties"]["district"])
-				// console.log(this.stateMap[Object.keys(this.stateMap)[1]]);
-				
-				// json(MAIN_URL)
-				// 	.then((data: any) => {
-				// 		dataIN = data["KA"]["districts"]
-				// 		console.log(dataIN)
+				let states = feature(data, data.objects.states)
+				this.indiaMap = states
+				// console.log(this.indiaMap[Object.keys(this.indiaMap)[1]])
+				let projection = geoMercator().fitSize([500, 700], states)
 
-				// 		Object.keys(dataIN).map(i => {
-				// 			// console.log(dataIN[i]["total"]["confirmed"])
-				// 			values.push(dataIN[i]["total"]["confirmed"])
-				// 		})
-				// 	})
-				g.selectAll('path')
-					.data(this.stateMap[Object.keys(this.stateMap)[1]])
+				let path = geoPath()
+					.projection(projection)
+				
+				g.selectAll("path")
+					.data(this.indiaMap[Object.keys(this.indiaMap)[1]])
 					.enter()
 					.append("path")
-					.attr("class", "district")
-					
+					.attr("class", "state")
 					.attr("stroke", "red")
-					.attr("d", (district: any) => path(district))
-					// .attr("fill", (d: any) => )
-					.attr("fill", (d: any) => {
-						let value;
-						// console.log(this.stateData["KA"])
-						Object.keys(this.stateData["KA"]["districts"]).find(i => {
-							if (i === d["properties"]["district"]) {
-								// console.log(i, this.stateData["KA"]["districts"][i]["total"]["confirmed"])
-								value = this.stateData["KA"]["districts"][i]["total"]["confirmed"]
+					.attr("d", (state: any) => path(state))
+					.attr("fill", (s: any) => {
+						let value
+						Object.keys(this.stateData).find(i => {
+							if (i === s["id"]) {
+								
+								if(this.dataShown == "active")
+								{
+									if(this.stateData[i]["total"]["other"] == undefined) {
+										value = this.stateData[i]["total"]["confirmed"] - this.stateData[i]["total"]["recovered"] - this.stateData[i]["total"]["deceased"]
+									}
+									else{
+										value = this.stateData[i]["total"]["confirmed"] - this.stateData[i]["total"]["recovered"] - this.stateData[i]["total"]["deceased"] - this.stateData[i]["total"]["other"]
+									}
+								}
+								else {
+									value = this.stateData[i]["total"][this.dataShown]
+								}
 							}
 						})
 						if (value) {
 							return this.colors(value)
 						}
-						return "#ccc"
+							return "#ccc"
+					})
+					.on("mouseover", (d, i: any) => {
+						let stateName = i["properties"]["st_nm"].length > 16 ? i["properties"]["st_nm"].slice(0, 16) + '..' : i["properties"]["st_nm"]
+						let val = this.dataShown == "active" ? this.stateData[i["id"]]["total"]["confirmed"] - this.stateData[i["id"]]["total"]["recovered"] - this.stateData[i["id"]]["total"]["deceased"] - (this.stateData[i["id"]]["total"]["other"] == undefined ? 0 : this.stateData[i["id"]]["total"]["other"]) : this.stateData[i["id"]]["total"][this.dataShown]
+						d3.selectAll('.state')
+							.attr("opacity", 0.3)
+							select(d["path"][0])
+							.attr("opacity", 1)
+						select(".home__stateInfo")
+							.transition()
+							.style("opacity", 1)
+						select(".home__stateName")
+							.text(stateName)
+						select(".home__statType")
+							.text((this.dataShown == 'deceased' ? 'deaths' : this.dataShown).toUpperCase() + ": " + val.toLocaleString('en-IN'))
+						
+					})
+					.on("mouseout", function(d) {
+						d3.selectAll('.state')
+						.attr("opacity", 1)
+						select(".home__stateInfo")
+						.transition()
+						.style("opacity", 0)
 					})
 					.append("title")
 					.text((i: any) => {
-						return ( i["properties"]["district"] + ':\n' + this.stateData["KA"]["districts"][i["properties"]["district"]]["total"]["confirmed"])
-					})
-
-					
+						
+						let val = this.dataShown == "active" ? this.stateData[i["id"]]["total"]["confirmed"] - this.stateData[i["id"]]["total"]["recovered"] - this.stateData[i["id"]]["total"]["deceased"] - (this.stateData[i["id"]]["total"]["other"] == undefined ? 0 : this.stateData[i["id"]]["total"]["other"]) : this.stateData[i["id"]]["total"][this.dataShown]
+						return ( i["properties"]["st_nm"] + ':\n' + val.toLocaleString('en-IN'))
+					})						
 			})
 	}
+	changeData (type: string) {
+		this.dataShown = type
+		let s = d3.selectAll('g')
+		s.remove()
+		this.render()
+	}	
+	
+	ngOnInit() {
+		
+		timer(0, 1000).subscribe(() => {
+			this.dateTime = new Date()
+		})
+		this._appData.getData()
+			.subscribe(data => {
+				this.stateData = data
+				this.confirmedCases = findConfirmedCases(this.stateData)
+				this.recovered = findRecoveredCases(this.stateData)
+				this.deaths = findTotalDeaths(this.stateData)
+				this.activeCases = findActiveCases(this.stateData)
+				
+			})
 
+		this.themesService.mode.subscribe(data => this.darkMode = data)
+		this.render()
+	}
+	
 }
+

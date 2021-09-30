@@ -1,8 +1,8 @@
 // Light theme coors
 
-$bg-theme-light: rgb(236, 236, 236);
+$bg-theme-light: rgb(230, 230, 230);
 $color-theme-light: #000;
-$bg-home-theme-light: #fff;
+$bg-home-theme-light: rgb(241, 241, 241);
 
 // Dark themes Color
 
@@ -112,6 +112,10 @@ $brick-light: #e2302810;
             background-color: rgba(55, 48, 83, 0.692);  
             backdrop-filter: blur(6px);
         }
+        .home__stateInfo {
+            background-color: rgba(55, 48, 83, 0.692);  
+            backdrop-filter: blur(6px);
+        }
     }
     @else {
         background: $bg-home-theme-light;
@@ -119,6 +123,11 @@ $brick-light: #e2302810;
             color: $color-theme-light;
         }
         .home__detail {
+            background-color: rgba(255, 255, 255, 0.555);
+            backdrop-filter: blur(6px);
+        }
+        
+        .home__stateInfo {
             background-color: rgba(255, 255, 255, 0.555);
             backdrop-filter: blur(6px);
         }
@@ -138,6 +147,25 @@ $brick-light: #e2302810;
     @else {
         background: $bg-home-theme-light;
         .about__text {
+            color: $color-theme-light;
+        }
+    }
+}
+
+
+// state-info
+
+@mixin theme-selector3 ($dark-theme3: true) {
+    @if $dark-theme3 {
+        background: $bg-home-theme-dark;
+        .state__text{
+            color: $color-theme-dark;
+        }
+        
+    }
+    @else {
+        background: $bg-home-theme-light;
+        .state__text {
             color: $color-theme-light;
         }
     }

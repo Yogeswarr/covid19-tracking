@@ -1,5 +1,7 @@
 <nav class="navbar" [ngClass] = "darkMode? 'darkMode': 'lightMode'">
-    <a (click) = "closeNav()" routerLink = "/" class="navbar__logo text">COVID-19 India</a>
+    <a (click) = "closeNav()" routerLink = "/" class="navbar__logo text">
+        COVID-19 <span style="color: #FF9933;" >IN</span><span>D</span><span style="color: #138808;">IA</span>
+    </a>
     <div (click) = "openNav()"  class="navbar__bars" *ngIf = "belowNav; else elseBlock">
         <i class="fas fa-times text"></i>
     </div>
