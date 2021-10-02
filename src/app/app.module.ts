@@ -9,7 +9,8 @@ import { AboutComponent } from './Components/about/about.component';
 import { HomeComponent } from './Components/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MapViewerComponent } from './Components/map-viewer/map-viewer.component';
-import { StatePageComponent } from './Components/state-page/state-page.component'
+import { StatePageComponent } from './Components/state-page/state-page.component';
+import { BarGraphComponent } from './Components/bar-graph/bar-graph.component'
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { StatePageComponent } from './Components/state-page/state-page.component
     AboutComponent,
     HomeComponent,
     MapViewerComponent,
-    StatePageComponent
+    StatePageComponent,
+    BarGraphComponent
   ],
   imports: [
     BrowserModule,

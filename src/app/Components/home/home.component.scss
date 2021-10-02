@@ -1,7 +1,8 @@
 @import "../../../styles.scss";
 
 .darkMode1 {
-    @include theme-selector1($dark-theme1: true)
+    @include theme-selector1($dark-theme1: true);
+    
 }
 .lightMode1 {
     @include theme-selector1($dark-theme1: false)
@@ -10,8 +11,7 @@
     min-height: 100vh;
     margin-top: 70px;
     overflow: hidden;
-    display: flex;
-    flex-direction: row;
+    
     padding-left: 60px;
     padding-right: 60px;
     padding-top: 20px;
@@ -28,6 +28,13 @@
     }
     @include mobile {
         padding: 10px 10px;
+    }
+    &__main {
+        display: flex;
+        flex-direction: row;
+        @include large {
+            flex-direction: column;
+        }
     }
     &__map {
         flex: 0.5;
@@ -99,12 +106,15 @@
     .home__red:hover {
         background: $red-hover;
     }
+
     &__date {
         display: flex;
         flex-direction: row;
         font-size: 23px;
+        padding-top: 16px;
         @include large {
             opacity: 0;
+            display: none;
         }
         column-gap: 50px;
         padding-bottom: 50px;
@@ -118,7 +128,7 @@
         justify-content: center;
         align-items: center;
         row-gap: 5px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
         margin: 2px;
         top: 25%;
@@ -126,16 +136,53 @@
         opacity: 0;
         @include large {
             left: 40%;
+            top: 35%;
+        }
+        @include tablet {
+            font-size: 13px;
+            
+            height: 70px;
+            width: 160px;
         }
         @include mobile {
-            height: 80px;
-            width: 180px;
+            left: 40%;
         }
     }
     &__stateName {
         font-size: 20px;
-        @include mobile {
+        @include tablet {
             font-size: 16px;
+        }
+    }
+    &__search {
+        display: flex;
+        padding: 10px 0px;
+        justify-content: center;
+        .searchbox{
+            width: 70%;
+            height: 45px;
+            border-radius: 10px;
+            border: none;
+            padding: 3px;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-size: 18px;
+            @include tablet {
+                width: 85%;
+            }
+        }
+        .searchbox:focus {
+            outline: none;
+            box-shadow: 0 0px 16px rgb(150, 149, 149);
+        }
+
+    }
+    &__vaccine {
+        margin-top: 50px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        @include tablet {
+            margin-top: 30px;
         }
     }
 }

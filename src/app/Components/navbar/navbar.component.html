@@ -12,7 +12,7 @@
     </ng-template>
     <div class="navbar__menu" [ngClass] = "belowNav? 'active' : ''">
         <a (click) = "closeNav()" routerLink = "/about" class="navbar__menu--links text">About</a>
-        <a (click) = "closeNav()" href="" class="navbar__menu--links text">Github</a>
+        <a (click) = "closeNav()" href="https://github.com/Yogeswarr/covid19-tracking" target="_blank" rel="noopener noreferrer" class="navbar__menu--links text">Github</a>
     </div>
     <div (click) = "enableDark()" class="navbar__switch text" *ngIf = "darkMode; else lightMode">
         <i class="fas fa-sun text"></i>

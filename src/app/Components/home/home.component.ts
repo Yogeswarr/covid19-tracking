@@ -4,8 +4,9 @@ import { SharedService } from 'src/app/shared.service';
 import { select, json, geoPath, geoMercator, scaleLinear, schemeBlues, schemeGreens, schemeReds, schemeGreys } from 'd3'
 import { feature } from 'topojson-client'
 import * as d3 from 'd3';
-import { MAIN_URL, findConfirmedCases, findRecoveredCases, findTotalDeaths, findActiveCases } from 'src/Constants';
+import { MAIN_URL, colorScheme } from 'src/Constants';
 import { timer } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-home',
@@ -21,35 +22,28 @@ export class HomeComponent implements OnInit {
   	public screenHeight: any; 
 	public dataShown = "confirmed"
 	public stateName = "KA"
-	
-	constructor(private _appData: AppComponent, private themesService: SharedService) {}
+	constructor(private _appData: AppComponent, private themesService: SharedService, private router: Router) {}
 	darkMode = false;
 	confirmedCases = 0
 	activeCases = 0
 	recovered = 0
 	deaths = 0
 	dateTime!: Date
-	colors = scaleLinear<string>()
-		.domain([1, 3000000])
-		.range(schemeReds[3])
-	colors1 = scaleLinear<string>()
-		.domain([1, 30000])
-		.range(schemeGreens[3])
+	colors: any
 	
 	render () {
 		let svg = select("#india_map")
 			.attr("preserveAspectRatio", "xMinYMin meet")
-			.attr("viewBox", "0 0 580 780")
+			.attr("viewBox", "0 0 580 680")
 			.classed("svg-content", true);
 		
 		// svg.remove()
-		let g = svg.append('g');
+		let g = svg.append('g')
 		
 		json("../../../assets/maps/india1.json")
 			.then((data: any) => {
 				let states = feature(data, data.objects.states)
 				this.indiaMap = states
-				// console.log(this.indiaMap[Object.keys(this.indiaMap)[1]])
 				let projection = geoMercator().fitSize([500, 700], states)
 
 				let path = geoPath()
@@ -60,7 +54,8 @@ export class HomeComponent implements OnInit {
 					.enter()
 					.append("path")
 					.attr("class", "state")
-					.attr("stroke", "red")
+					.attr("stroke", "white")
+					.attr("stroke-width", 1.5)
 					.attr("d", (state: any) => path(state))
 					.attr("fill", (s: any) => {
 						let value
@@ -82,6 +77,7 @@ export class HomeComponent implements OnInit {
 							}
 						})
 						if (value) {
+							
 							return this.colors(value)
 						}
 							return "#ccc"
@@ -109,18 +105,23 @@ export class HomeComponent implements OnInit {
 						.transition()
 						.style("opacity", 0)
 					})
+					.on("click", (d, i:any) => {
+						this.router.navigate([`/state/${i["id"]}`])
+					})
 					.append("title")
 					.text((i: any) => {
 						
 						let val = this.dataShown == "active" ? this.stateData[i["id"]]["total"]["confirmed"] - this.stateData[i["id"]]["total"]["recovered"] - this.stateData[i["id"]]["total"]["deceased"] - (this.stateData[i["id"]]["total"]["other"] == undefined ? 0 : this.stateData[i["id"]]["total"]["other"]) : this.stateData[i["id"]]["total"][this.dataShown]
 						return ( i["properties"]["st_nm"] + ':\n' + val.toLocaleString('en-IN'))
-					})						
+					})	
 			})
 	}
 	changeData (type: string) {
 		this.dataShown = type
-		let s = d3.selectAll('g')
-		s.remove()
+		this.colors = colorScheme(this.dataShown, this.stateData)
+		let svg = select("#india_map")
+		let s = svg.selectAll('g')
+		s.transition().remove()
 		this.render()
 	}	
 	
@@ -132,15 +133,18 @@ export class HomeComponent implements OnInit {
 		this._appData.getData()
 			.subscribe(data => {
 				this.stateData = data
-				this.confirmedCases = findConfirmedCases(this.stateData)
-				this.recovered = findRecoveredCases(this.stateData)
-				this.deaths = findTotalDeaths(this.stateData)
-				this.activeCases = findActiveCases(this.stateData)
+				this.confirmedCases = this.stateData["TT"]["total"]["confirmed"]
+				this.recovered = this.stateData["TT"]["total"]["recovered"]
+				this.deaths = this.stateData["TT"]["total"]["deceased"]
+				this.activeCases = this.confirmedCases - this.recovered - this.deaths - this.stateData["TT"]["total"]["other"]
+				this.colors = colorScheme(this.dataShown, this.stateData)
 				
 			})
 
 		this.themesService.mode.subscribe(data => this.darkMode = data)
 		this.render()
+		
+		
 	}
 	
 }

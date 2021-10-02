@@ -10,4 +10,111 @@
 .state {
     min-height: 100vh;
     margin-top: 70px;
+    overflow: hidden;
+    
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-top: 20px;
+    padding: auto;
+    // padding: 10px 150px;
+    @include large {
+        // padding: 10px 70px;
+        flex-direction: column;
+        padding: auto;
+    }
+    @include medium {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    @include mobile {
+        padding: 10px 10px;
+    }
+    &__main {
+        display: flex;
+        flex-direction: row;
+        @include large {
+            flex-direction: column;
+        }
+    }
+    &__map {
+        flex: 0.5;
+    }
+    &__stats {
+        flex: 0.5;
+
+    }
+    &__details {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 10px;
+        @include large {
+            justify-items: center;
+        }
+    }
+    &__detail {
+        height: 100px;
+        width: 210px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+        margin: 2px;
+        cursor: pointer;
+        @include medium {
+            width: 160px;
+            height: 100px;
+        }
+        @include mobile{
+            width: 130px;
+            height: 80px;
+        }
+        
+
+    }
+    .large__text {
+        font-size: 23px;
+        @include mobile {
+            font-size: 20px;
+        }
+    }
+    &__header {
+        font-size: 40px;
+    }
+    .state__blue {
+        color: $blue;
+    }
+    .state__red {
+        color: $red;
+    }
+    .state__green {
+        color: $green;
+    }
+    .state__gray {
+        color: $gray;
+    }
+    .state__blue:hover {
+        background: $blue-hover;
+    }
+    .state__gray:hover {
+        background: $gray-middark;
+    }
+    .state__green:hover {
+        background: $green-hover;
+    }
+    .state__red:hover {
+        background: $red-hover;
+    }
+    &__info {
+        opacity: 0;
+    }
+    &__vaccine {
+        margin-top: 50px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        @include tablet {
+            margin-top: 30px;
+        }
+    }
 }

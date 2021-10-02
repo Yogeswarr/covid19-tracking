@@ -1,0 +1,143 @@
+{
+    "AN": {
+        "stateName": "Andaman and Nicobar Islands",
+        "file": "andamannicobarislands.json"
+    },
+    "AP": {
+        "stateName": "Andhra Pradesh",
+        "file": "andhrapradesh.json"
+    },
+    "AR": {
+        "stateName": "Arunachal Pradesh",
+        "file": "arunachalpradesh.json"
+    },
+    "AS": {
+        "stateName": "Assam",
+        "file": "assam.json"
+    },
+    "BR": {
+        "stateName": "Bihar",
+        "file": "bihar.json"
+    },
+    "CT": {
+        "stateName": "Chhattisgarh",
+        "file": "chhattisgarh.json"
+    },
+    "DL": {
+        "stateName": "Delhi",
+        "file": "delhi.json"
+    },
+    "DN": {
+        "stateName": "Dadra and Nagar Haveli and Daman and Diu",
+        "file": "dnh-and-dd.json"
+    },
+    "GA": {
+        "stateName": "Goa",
+        "file": "goa.json"
+    },
+    "GJ": {
+        "stateName": "Gujarat",
+        "file": "gujarat.json"
+    },
+    "HR": {
+        "stateName": "Haryana",
+        "file": "haryana.json"
+    },
+    "HP": {
+        "stateName": "Himachal Pradesh",
+        "file": "himachalpradesh.json"
+    },
+    "JK": {
+        "stateName": "Jammu and Kashmir",
+        "file": "jammukashmir.json"
+    },
+    "JH": {
+        "stateName": "Jharkhand",
+        "file": "jharkhand.json"
+    },
+    "KA": {
+        "stateName": "Karnataka",
+        "file": "karnataka.json"
+    },
+    "KL": {
+        "stateName": "Kerala",
+        "file": "kerala.json"
+    },
+    "LA": {
+        "stateName": "Ladakh",
+        "file": "ladakh.json"
+    },
+    "LD": {
+        "stateName": "Lakshadweep Islands",
+        "file": "lakshadweep.json"
+    },
+    "MP": {
+        "stateName": "Madhya Pradesh",
+        "file": "madhyapradesh.json"
+    },
+    "MH": {
+        "stateName": "Maharashtra",
+        "file": "maharashtra.json"
+    },
+    "MN": {
+        "stateName": "Manipur",
+        "file": "manipur.json"
+    },
+    "ML": {
+        "stateName": "Meghalaya",
+        "file": "meghalaya.json"
+    },
+    "MZ": {
+        "stateName": "Mizoram",
+        "file": "mizoram.json"
+    },
+    "NL": {
+        "stateName": "Nagaland",
+        "file": "nagaland.json"
+    },
+    "OR": {
+        "stateName": "Odisha",
+        "file": "odisha.json"
+    },
+    "PY": {
+        "stateName": "Puducherry",
+        "file": "puducherry.json"
+    },
+    "PB": {
+        "stateName": "Punjab",
+        "file": "punjab.json"
+    },
+    "RJ": {
+        "stateName": "Rajasthan",
+        "file": "rajasthan.json"
+    },
+    "SK": {
+        "stateName": "Sikkim",
+        "file": "sikkim.json"
+    },
+    "TN": {
+        "stateName": "Tamil Nadu",
+        "file": "tamilnadu.json"
+    },
+    "TG": {
+        "stateName": "Telangana",
+        "file": "telangana.json"
+    },
+    "TR": {
+        "stateName": "Tripura",
+        "file": "tripura.json"
+    },
+    "UT": {
+        "stateName": "Uttarakhand",
+        "file": "uttarakhand.json"
+    },
+    "UP": {
+        "stateName": "Uttar Pradesh",
+        "file": "uttarpradesh.json"
+    },
+    "WB": {
+        "stateName": "Westbengal",
+        "file": "westbengal.json"
+    }   
+
+}

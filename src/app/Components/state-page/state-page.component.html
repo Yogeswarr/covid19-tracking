@@ -1,3 +1,27 @@
 <div class="state" [ngClass] = "darkMode? 'darkMode3' : 'lightMode3'">
-    <p class="state__text">Info of state: {{ stateName }}  </p>
+    <p class="state__text large__text">{{ showName }}  </p>
+    
+    <div class="state__main">
+        <div class="state__map">
+            <div class="state__info">
+                <div style="display: flex;">
+                    <i class="fas fa-caret-right"></i>&nbsp;
+                    <p class="state__districtName state__text"></p>
+                </div>
+                <p class="state__districtInfo state__text"></p>
+            </div>
+            <svg id="state_map"></svg>
+        </div>
+        <div class="state__stats">
+            <div class="state__details">
+                <div (click) = "changeData('confirmed')" class="state__detail state__text state__red">Confirmed <br> <br> <span class="large__text">{{ confirmedCases.toLocaleString('en-IN') }}</span></div>
+                <div (click) = "changeData('active')"  class="state__detail state__text state__blue">Active<br> <br> <span class="large__text">{{ activeCases.toLocaleString('en-IN') }}</span></div>
+                <div (click) = "changeData('recovered')"  class="state__detail state__text state__green">Recovered <br> <br> <span class="large__text">{{ recovered.toLocaleString('en-IN') }}</span></div>
+                <div (click) = "changeData('deceased')"  class="state__detail state__text state__gray">Deaths <br> <br> <span class="large__text">{{ deaths.toLocaleString('en-IN') }}</span></div>
+            </div>
+            <div class="state__vaccine">
+                <app-bar-graph [data] = "stateData[stateName]" ></app-bar-graph>
+            </div>
+        </div>
+    </div>
 </div>

@@ -116,6 +116,15 @@ $brick-light: #e2302810;
             background-color: rgba(55, 48, 83, 0.692);  
             backdrop-filter: blur(6px);
         }
+        .searchbox {
+            background-color: rgba(76, 68, 107, 0.692); 
+            color: #ccc;
+        }
+        
+        .home__vaccine {
+            background-color: rgba(55, 48, 83, 0.692); 
+            backdrop-filter: blur(6px);   
+        }
     }
     @else {
         background: $bg-home-theme-light;
@@ -130,6 +139,15 @@ $brick-light: #e2302810;
         .home__stateInfo {
             background-color: rgba(255, 255, 255, 0.555);
             backdrop-filter: blur(6px);
+        }
+        .searchbox {
+            background-color: rgba(250, 250, 250, 0.692);
+            box-shadow: 0 0px 16px rgb(150, 149, 149); 
+            color: $color-theme-light;
+        }
+        .home__vaccine {
+            background-color: rgba(255, 255, 255, 0.555);
+            backdrop-filter: blur(6px);   
         }
 
     }
