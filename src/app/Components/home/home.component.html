@@ -1,6 +1,11 @@
 <div class="home" [ngClass] = "darkMode? 'darkMode1' : 'lightMode1'">
     <div class="home__search">
-        <input type="text" class="searchbox" placeholder="Search any State or District">
+        <input type="text" [(ngModel)]="searchInput" (focus)="selected = true" (blur)="selected = false" (keyup)="fetchSeries($event)" class="searchbox" placeholder="Search any state name">
+        <ul class="searchDrop" >
+            <li *ngFor="let show of searchResult">
+                <p (click) = "routeToState(show.code)" class="home__text searchText"> {{ show.name }}</p>
+            </li>
+        </ul>
     </div>
     <div class="home__stateInfo">
         <p class="home__text home__stateName"></p>
@@ -18,7 +23,7 @@
                 <p class="home__text" >{{ dateTime | date: "h:mm a" }}</p>
             </div>
             <div class="home__details">
-                <div (click) = "changeData('confirmed')" class="home__detail home__text home__red">Confirmed <br> <br> <span class="large__text">{{ confirmedCases.toLocaleString('en-IN') }}</span></div>
+                <div  (click) = "changeData('confirmed')" class="home__detail home__text home__red">Confirmed <br> <br> <span class="large__text">{{ confirmedCases.toLocaleString('en-IN') }}</span></div>
                 <div (click) = "changeData('active')"  class="home__detail home__text home__blue">Active<br> <br> <span class="large__text">{{ activeCases.toLocaleString('en-IN') }}</span></div>
                 <div (click) = "changeData('recovered')"  class="home__detail home__text home__green">Recovered <br> <br> <span class="large__text">{{ recovered.toLocaleString('en-IN') }}</span></div>
                 <div (click) = "changeData('deceased')"  class="home__detail home__text home__gray">Deaths <br> <br> <span class="large__text">{{ deaths.toLocaleString('en-IN') }}</span></div>

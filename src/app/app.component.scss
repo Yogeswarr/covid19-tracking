@@ -1,8 +1,1 @@
 @import "../styles";
-
-.darkMode {
-    @include theme-selector($dark-theme: true)
-}
-.lightMode {
-    @include theme-selector($dark-theme: false)
-}

@@ -76,10 +76,12 @@
             position: absolute;
             flex-direction: column;
             opacity: 0;
+            display: none;
         }
     }
     .active {
         opacity: 1;
+        display: flex;
         top: 70px;
         z-index: 100;
         width: 100%;

@@ -125,6 +125,10 @@ $brick-light: #e2302810;
             background-color: rgba(55, 48, 83, 0.692); 
             backdrop-filter: blur(6px);   
         }
+        .searchDrop {
+            background-color: rgba(55, 48, 83, 0.692);  
+            backdrop-filter: blur(6px);
+        }
     }
     @else {
         background: $bg-home-theme-light;
@@ -147,6 +151,10 @@ $brick-light: #e2302810;
         }
         .home__vaccine {
             background-color: rgba(255, 255, 255, 0.555);
+            backdrop-filter: blur(6px);   
+        }
+        .searchDrop {
+            background-color: rgba(212, 209, 209, 0.555);
             backdrop-filter: blur(6px);   
         }
 
@@ -178,6 +186,14 @@ $brick-light: #e2302810;
         background: $bg-home-theme-dark;
         .state__text{
             color: $color-theme-dark;
+        }
+        .state__vaccine {
+            background-color: rgba(55, 48, 83, 0.692); 
+            backdrop-filter: blur(6px);   
+        }
+        .state__detail {
+            background-color: rgba(55, 48, 83, 0.692); 
+            backdrop-filter: blur(6px);     
         }
         
     }

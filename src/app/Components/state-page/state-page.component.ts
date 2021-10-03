@@ -118,7 +118,6 @@ export class StatePageComponent implements OnInit {
             
             .on("mouseover",  (d: any, i: any) => {
               let val = this.whichStats == "active" ? this.stateData[this.stateName]["districts"][i["properties"]["district"]]["total"]["confirmed"] - this.stateData[this.stateName]["districts"][i["properties"]["district"]]["total"]["recovered"] - this.stateData[this.stateName]["districts"][i["properties"]["district"]]["total"]["deceased"] - (this.stateData[this.stateName]["districts"][i["properties"]["district"]]["total"]["other"] == undefined ? 0 : this.stateData[this.stateName]["districts"][i["properties"]["district"]]["total"]["other"]) : this.stateData[this.stateName]["districts"][i["properties"]["district"]]["total"][this.whichStats]
-              console.log(this.color)
               d3.selectAll('.district')
                 .attr("opacity", 0.3)
               select(d["path"][0])
@@ -140,7 +139,8 @@ export class StatePageComponent implements OnInit {
               .attr("opacity", 1)
               select(".state__info")
 							  .transition()
-							  // .style("opacity", 0)
+                .delay(500)
+							  .style("opacity", 0)
             })
             .append("title")
             .text((i: any) => {

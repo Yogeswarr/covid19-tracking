@@ -1,10 +1,10 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { SharedService } from 'src/app/shared.service';
-import { select, json, geoPath, geoMercator, scaleLinear, schemeBlues, schemeGreens, schemeReds, schemeGreys } from 'd3'
+import { select, json, geoPath, geoMercator} from 'd3'
 import { feature } from 'topojson-client'
 import * as d3 from 'd3';
-import { MAIN_URL, colorScheme } from 'src/Constants';
+import { colorScheme, STATE_CODES } from 'src/Constants';
 import { timer } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 	templateUrl: './home.component.html',
 	styleUrls: ['./home.component.scss']
 })
-
 export class HomeComponent implements OnInit {
 	public stateData: any
 	public indiaMap: any
@@ -22,6 +21,10 @@ export class HomeComponent implements OnInit {
   	public screenHeight: any; 
 	public dataShown = "confirmed"
 	public stateName = "KA"
+	public searchInput:string = ""
+	// public searchResult: Array<Object> = []  
+	public searchResult: any = []  
+	public searchData: any
 	constructor(private _appData: AppComponent, private themesService: SharedService, private router: Router) {}
 	darkMode = false;
 	confirmedCases = 0
@@ -30,7 +33,7 @@ export class HomeComponent implements OnInit {
 	deaths = 0
 	dateTime!: Date
 	colors: any
-	
+	selected: boolean = false
 	render () {
 		let svg = select("#india_map")
 			.attr("preserveAspectRatio", "xMinYMin meet")
@@ -123,12 +126,50 @@ export class HomeComponent implements OnInit {
 		let s = svg.selectAll('g')
 		s.transition().remove()
 		this.render()
-	}	
+	}
+	fetchSeries (event: any) {
+		if (event.target.value === '') {
+		  return this.searchResult = [];
+		}
+		json("../../../assets/maps/maps.json")
+			.then(data => {
+				this.searchData = data
+
+				Object.keys(STATE_CODES).map((i: any) => {
+					if (event.target.value.length > 0) {
+						if (i.toLowerCase().startsWith(event.target.value.toLowerCase())) {
+							// console.log(STATE_CODES[i])
 	
+							this.searchResult.push({name: i, code: STATE_CODES[i]});
+						}
+					}
+					else {
+						this.searchResult = []
+						
+					}
+				})
+		})
+
+		let drop = select(".searchDrop")
+		if(this.searchInput.length > 0 && this.selected == true) {
+			drop.style("opacity", 1)
+			drop.style("display", "block")
+
+		}
+		else {
+			drop.style("opacity", 0)
+			drop.style("display", "none")
+		}
+		return this.searchResult = [];
+	}
+	routeToState (state: string) {
+		this.router.navigate([`/state/${state}`])
+	}
 	ngOnInit() {
 		
-		timer(0, 1000).subscribe(() => {
+		timer(0, 100).subscribe(() => {
 			this.dateTime = new Date()
+			
 		})
 		this._appData.getData()
 			.subscribe(data => {
@@ -143,8 +184,7 @@ export class HomeComponent implements OnInit {
 
 		this.themesService.mode.subscribe(data => this.darkMode = data)
 		this.render()
-		
-		
+		// console.log(STATE_CODES)
 	}
 	
 }

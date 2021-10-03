@@ -2,64 +2,6 @@ import * as d3 from "d3"
 
 export const MAIN_URL = "https://data.covid19india.org/v4/min/data.min.json"
 export const TIMESERIES_URL = "https://data.covid19india.org/v4/min/timeseries.min.json"
-
-// export const findConfirmedCases = (data: any) => {
-//     let sum = 0;
-//     Object.keys(data).map(i => {
-//         if (data[i]["total"]["confirmed"] == undefined) {
-//             sum = sum
-//         }        
-//         else {
-//             sum += data[i]["total"]["confirmed"]
-//         }
-//     })
-//     return sum/2
-// }
-
-
-// export const findRecoveredCases = (data: any) => {
-//     let sum = 0;
-//     Object.keys(data).map(i => {
-//         if (data[i]["total"]["recovered"] == undefined) {
-//             sum = sum
-//         }        
-//         else {
-//             sum += data[i]["total"]["recovered"]
-//         }
-//     })
-//     return sum/2
-// }
-
-
-// export const findTotalDeaths = (data: any) => {
-//     let sum = 0;
-//     Object.keys(data).map(i => {
-//         if (data[i]["total"]["deceased"] == undefined) {
-//             sum = sum
-//         }        
-//         else {
-//             sum += data[i]["total"]["deceased"]
-//         }
-//     })
-//     return sum/2
-// }
-
-// export const findActiveCases = (data: any) => {
-//     let sum = 0;
-//     let confirmed = findConfirmedCases(data)
-//     let deaths = findTotalDeaths(data)
-//     let recoverd = findRecoveredCases(data)
-//     Object.keys(data).map(i => {
-//         if (data[i]["total"]["other"] == undefined) {
-//             sum = sum
-//         }        
-//         else {
-//             sum += data[i]["total"]["other"]
-//         }
-//     })
-//     return confirmed - recoverd - deaths - sum/2
-// }
-
 export const colorScheme = (stat: string, data: any) => {
 
     let max = 0;
@@ -133,3 +75,52 @@ export const colorScheme = (stat: string, data: any) => {
             return colors;
     }
 }
+
+export const STATE_NAMES: any = {
+    AP: 'Andhra Pradesh',
+    AR: 'Arunachal Pradesh',
+    AS: 'Assam',
+    BR: 'Bihar',
+    CT: 'Chhattisgarh',
+    GA: 'Goa',
+    GJ: 'Gujarat',
+    HR: 'Haryana',
+    HP: 'Himachal Pradesh',
+    JH: 'Jharkhand',
+    KA: 'Karnataka',
+    KL: 'Kerala',
+    MP: 'Madhya Pradesh',
+    MH: 'Maharashtra',
+    MN: 'Manipur',
+    ML: 'Meghalaya',
+    MZ: 'Mizoram',
+    NL: 'Nagaland',
+    OR: 'Odisha',
+    PB: 'Punjab',
+    RJ: 'Rajasthan',
+    SK: 'Sikkim',
+    TN: 'Tamil Nadu',
+    TG: 'Telangana',
+    TR: 'Tripura',
+    UT: 'Uttarakhand',
+    UP: 'Uttar Pradesh',
+    WB: 'West Bengal',
+    AN: 'Andaman and Nicobar Islands',
+    CH: 'Chandigarh',
+    DN: 'Dadra and Nagar Haveli and Daman and Diu',
+    DL: 'Delhi',
+    JK: 'Jammu and Kashmir',
+    LA: 'Ladakh',
+    LD: 'Lakshadweep',
+    PY: 'Puducherry',
+};
+  
+const stateCodes: any = [];
+const stateCodesMap:any = {};
+Object.keys(STATE_NAMES).map((key, index) => {
+    stateCodesMap[STATE_NAMES[key]] = key;
+    stateCodes.push({code: key, name: STATE_NAMES[key]});
+    return null;
+});
+export const STATE_CODES = stateCodesMap;
+export const STATE_CODES_ARRAY = stateCodes;

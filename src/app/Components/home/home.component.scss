@@ -8,7 +8,7 @@
     @include theme-selector1($dark-theme1: false)
 }
 .home {
-    min-height: 100vh;
+    // min-height: 100vh;
     margin-top: 70px;
     overflow: hidden;
     
@@ -158,6 +158,8 @@
         display: flex;
         padding: 10px 0px;
         justify-content: center;
+        flex-direction: column;
+        align-items: center;
         .searchbox{
             width: 70%;
             height: 45px;
@@ -174,6 +176,25 @@
         .searchbox:focus {
             outline: none;
             box-shadow: 0 0px 16px rgb(150, 149, 149);
+        }
+        .searchDrop {
+            border-radius: 5px;
+            top: 150px;
+            width: 70%;
+            opacity: 0;
+            max-height: 150px;
+            z-index: 70;
+            list-style: none;
+            overflow-y: scroll;
+            @include tablet {
+                width: 85%;
+            }
+        }
+        .searchText {
+            font-size: 20px;
+            padding: 15px 30px;
+            border-bottom: 2px solid #8b939b;
+            cursor: pointer;
         }
 
     }
