@@ -7,6 +7,33 @@
     @include theme-selector2($dark-theme2: false)
 }
 .about {
-    height: 100vh;
+    min-height: 100vh;
     margin-top: 70px;
+    display: flex;
+    &__main {
+        padding-left: 60px;
+        padding-right: 60px;
+        padding-top: 20px;
+        padding: auto;
+        @include medium {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        @include mobile {
+            padding: 10px 10px;
+        }
+    }
+    .large__text {
+        font-size: 35px;
+        border-bottom: 2px solid;
+        display: inline;
+    }
+    &__pageInfo {
+        padding-top: 30px;
+    }
+    .med__text {
+        font-size: 20px;
+        letter-spacing: 1px;
+        text-align: justify;
+    }
 }

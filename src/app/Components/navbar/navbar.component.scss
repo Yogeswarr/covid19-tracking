@@ -48,6 +48,7 @@
         margin: 20px;
         transition: all 250ms ease-in-out;
         position: relative;
+        display: inline;
         transition: .5s;
         @include mobile {
             font-size: 15px;

@@ -1,3 +1,19 @@
 <div class="about" [ngClass] = "darkMode? 'darkMode2' : 'lightMode2'">
-    <p class="about__text">about works!</p>
+    <div class="about__main">
+        <p class="about__text large__text">About</p>
+        <div class="about__pageInfo">
+            <p class="about__text med__text">
+                <u><i>Covid-19 INDIA</i></u>, an web page which displays the COVID-19 stats of India as well as stats of states and union teritories.
+                This app was built on <u><i>Angular 12 framework</i></u>, which is a open source used to build scalable wep application in typescript (TS). Have used <u><i>SCSS</i></u> for styling the components.
+                <br/>
+                <br/>
+                Have used <u><i>D3 (Data Driven Documents)</i></u> for the visualization of the country / state maps with the required stats in the form of a <u><i>choropleth map</i></u>. 
+                Click on any state or search to get the information(stats) of the particular state/union teritories. The bar-graph represents the number of vaccination in terms of 1st dose / fully vaccinated comparing it with the population of the country / state
+                <br>
+                <br>
+                Data was fetched from an API using the HTTP-client inbuilt in angular core. The API link can be found 
+                <i><a href="https://data.covid19india.org/" target="_blank" rel="noopener noreferrer" class="about__text">here</a></i>. 
+            </p>
+        </div>
+    </div>
 </div>

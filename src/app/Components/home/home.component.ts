@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit {
 	public dataShown = "confirmed"
 	public stateName = "KA"
 	public searchInput:string = ""
-	// public searchResult: Array<Object> = []  
 	public searchResult: any = []  
 	public searchData: any
 	constructor(private _appData: AppComponent, private themesService: SharedService, private router: Router) {}
@@ -40,7 +39,6 @@ export class HomeComponent implements OnInit {
 			.attr("viewBox", "0 0 580 680")
 			.classed("svg-content", true);
 		
-		// svg.remove()
 		let g = svg.append('g')
 		
 		json("../../../assets/maps/india1.json")
@@ -138,8 +136,6 @@ export class HomeComponent implements OnInit {
 				Object.keys(STATE_CODES).map((i: any) => {
 					if (event.target.value.length > 0) {
 						if (i.toLowerCase().startsWith(event.target.value.toLowerCase())) {
-							// console.log(STATE_CODES[i])
-	
 							this.searchResult.push({name: i, code: STATE_CODES[i]});
 						}
 					}
@@ -179,13 +175,9 @@ export class HomeComponent implements OnInit {
 				this.deaths = this.stateData["TT"]["total"]["deceased"]
 				this.activeCases = this.confirmedCases - this.recovered - this.deaths - this.stateData["TT"]["total"]["other"]
 				this.colors = colorScheme(this.dataShown, this.stateData)
-				
 			})
 
 		this.themesService.mode.subscribe(data => this.darkMode = data)
-		this.render()
-		// console.log(STATE_CODES)
-	}
-	
+		this.render()		
+	}	
 }
-
