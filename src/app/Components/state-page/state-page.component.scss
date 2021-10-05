@@ -15,12 +15,8 @@
     padding-left: 60px;
     padding-right: 60px;
     padding-top: 20px;
-    padding: auto;
-    // padding: 10px 150px;
     @include large {
-        // padding: 10px 70px;
         flex-direction: column;
-        padding: auto;
     }
     @include medium {
         padding-left: 10px;
